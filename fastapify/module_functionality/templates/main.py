@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import FastAPI
-from fastadmin import fastapi_app as admin_app
 
 from starlette.middleware.cors import CORSMiddleware
 
