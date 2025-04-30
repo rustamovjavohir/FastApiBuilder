@@ -63,12 +63,12 @@ class ProjectStructure:
         config_folder = base_dir / self.config_folder
         os.makedirs(config_folder, exist_ok=True)
         with open(config_folder / 'config.py', 'w') as f:
-            template_path = Path(__file__).parent / 'templates/config.txt'
+            template_path = Path(__file__).parent / 'templates/config.py'
             output_path = config_folder / 'config.py'
             self.render_to_string(template_path, output_path)
 
         with open(config_folder / 'database.py', 'w') as f:
-            template_path = Path(__file__).parent / 'templates/database.txt'
+            template_path = Path(__file__).parent / 'templates/database.py'
             output_path = config_folder / 'database.py'
             self.render_to_string(template_path, output_path)
 
@@ -87,11 +87,11 @@ class ProjectStructure:
             with open(source_folder / '__init__.py', 'w') as f:
                 pass
 
-        template_path = Path(__file__).parent / 'templates/api.txt'
+        template_path = Path(__file__).parent / 'templates/api.py'
         output_path = source_folder / 'api.py'
         self.render_to_string(template_path, output_path)
 
-        template_path = Path(__file__).parent / 'templates/main.txt'
+        template_path = Path(__file__).parent / 'templates/main.py'
         output_path = base_dir / 'main.py'
         self.render_to_string(template_path, output_path)
 
