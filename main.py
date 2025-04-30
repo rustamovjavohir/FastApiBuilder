@@ -9,4 +9,4 @@ def cli():
 @cli.command()
 @click.option('-n', '--name', type=str, help='Name to greet', default='World')
 def hello(name):
-    click.echo(f'Hello {name}')
+    click.echo(f'Helloo {name}')
