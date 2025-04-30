@@ -17,9 +17,11 @@ VERSION = "0.0.5"
 # What packages are required for this module to be executed?
 REQUIRED = [
     "click==8.1.8",
-    # "wheel==0.45.1",
-    # "twine==6.1.0",
-    # "setuptools==80.0.1",
+    "fastapi[all]==0.115.8",
+    "uvicorn[standard]==0.34.0",
+    "alembic==1.14.1",
+    "sqlalchemy[asyncio]==2.0.38",
+    "passlib==1.7.4",
 ]
 
 # What packages are optional?
@@ -108,7 +110,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        fastbuilder=main:cli
+        fastapify=main:cli
     ''',
 
     # $ setup.py publish support.
