@@ -6,20 +6,20 @@ from shutil import rmtree
 from setuptools import setup, find_packages, Command
 
 # Package meta-data.
-NAME = "fastapi-factory"
+NAME = "fastapify"
 DESCRIPTION = "A simple FastAPI factory for creating FastAPI applications."
 URL = "https://github.com/rustamovjavohir/FastApiBuilder"
 EMAIL = "rustamovj366@gmail.com"
 AUTHOR = "Rustamov Javohir"
 REQUIRES_PYTHON = ">=3.9.0"
-VERSION = "0.0.1"
+VERSION = "0.0.5"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
     "click==8.1.8",
-    "wheel==0.45.1",
-    "twine==6.1.0",
-    "setuptools==80.0.1",
+    # "wheel==0.45.1",
+    # "twine==6.1.0",
+    # "setuptools==80.0.1",
 ]
 
 # What packages are optional?
