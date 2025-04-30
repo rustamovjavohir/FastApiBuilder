@@ -12,7 +12,7 @@ URL = "https://github.com/rustamovjavohir/FastApiBuilder"
 EMAIL = "rustamovj366@gmail.com"
 AUTHOR = "Rustamov Javohir"
 REQUIRES_PYTHON = ">=3.9.0"
-VERSION = "0.0.5"
+VERSION = "0.0.7"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
