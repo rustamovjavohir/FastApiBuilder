@@ -12,7 +12,7 @@ URL = "https://github.com/rustamovjavohir/FastApiBuilder"
 EMAIL = "rustamovj366@gmail.com"
 AUTHOR = "Rustamov Javohir"
 REQUIRES_PYTHON = ">=3.9.0"
-VERSION = "0.0.7"
+VERSION = "0.0.9"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -99,7 +99,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=URL,
-    py_modules=['main', 'app'],
+    # py_modules=['main', 'app'],
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
@@ -110,7 +110,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        fastapify=main:cli
+        fastapify=fastapify.main:cli
     ''',
 
     # $ setup.py publish support.

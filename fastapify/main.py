@@ -1,6 +1,6 @@
 import click
 
-from app.module_functionality.commands import current_path, create_src, ProjectStructure
+from fastapify.module_functionality.commands import current_path, ProjectStructure
 
 command = ProjectStructure()
 
