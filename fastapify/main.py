@@ -12,11 +12,12 @@ def cli():
 
 
 @cli.command()
-def startproject():
+@click.argument('project_name')
+def startproject(project_name):
     """
-    Create a new Project and app with a specific structure.
+    Create a new Project with a specific structure.
     """
-    command.startproject()
+    command.startproject(project_name)
 
 
 @cli.command()

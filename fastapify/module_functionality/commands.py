@@ -1,6 +1,7 @@
 import os
 import click
 from pathlib import Path
+from fastapify.module_functionality.templates import other_files
 
 
 class ProjectStructure:
@@ -25,18 +26,26 @@ class ProjectStructure:
         """
         Create a new Project and app with a specific structure.
         """
+        kwargs = {"project_name": self.project_name}
         base_dir = Path.cwd() / self.env_folder
         os.makedirs(base_dir, exist_ok=True)
 
         os.makedirs(base_dir / '.local', exist_ok=True)
         os.makedirs(base_dir / '.prod', exist_ok=True)
 
-        click.echo("Environment folder successfully created")
+        with open(base_dir / '.local' / '.db', 'w') as f:
+            output_path = base_dir / '.local' / '.db'
+            self.render_file(other_files.env_db, output_path, kwargs)
+
+        with open(base_dir / '.local' / '.web', 'w') as f:
+            output_path = base_dir / '.local' / '.web'
+            self.render_file(other_files.env_web, output_path, kwargs)
 
     def create_compose(self):
         """
         Create a new Project and app with a specific structure.
         """
+        kwargs = {"project_name": self.project_name}
         base_dir = Path.cwd()
         compose_folder = base_dir / self.compose_folder
         os.makedirs(compose_folder, exist_ok=True)
@@ -44,15 +53,18 @@ class ProjectStructure:
         os.makedirs(compose_folder / 'local' / 'django', exist_ok=True)
         os.makedirs(compose_folder / 'prod' / 'django', exist_ok=True)
 
+        with open(compose_folder / 'local' / 'django' / 'Dockerfile', 'w') as f:
+            output_path = compose_folder / 'local' / 'django' / 'Dockerfile'
+            self.render_file(other_files.local_django_dokerfile, output_path)
+
         if not (base_dir / 'local.yml').exists():
             with open(base_dir / 'local.yml', 'w') as f:
-                pass
+                output_path = base_dir / 'local.yml'
+                self.render_file(other_files.local_yml, output_path, placeholders=kwargs)
 
         if not (base_dir / 'prod.yml').exists():
             with open(base_dir / 'prod.yml', 'w') as f:
                 pass
-
-        click.echo("Compose folder successfully created")
 
     def create_config(self):
         """
@@ -138,13 +150,31 @@ class ProjectStructure:
         with open(output_file, 'w') as file:
             file.write(content)
 
-    def startproject(self):
+    def render_file(self, text, output_path, placeholders=None):
+        """
+        Render a file with placeholders.
+        :param text:
+        :param output_path:
+        :param placeholders:
+        :return:
+        """
+        if placeholders:
+            for placeholder, value in placeholders.items():
+                text = text.replace(f"{{{{ {placeholder} }}}}", value)
+        output_file = Path(output_path)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w') as file:
+            file.write(text)
+
+    def startproject(self, project_name):
         """
         Create a new Project and app with a specific structure.
         """
         # Define the folder structure
 
         # Create the base directory for the project
+        self.project_name = project_name
+
         base_dir = Path.cwd()
         os.makedirs(base_dir, exist_ok=True)
 
@@ -156,6 +186,7 @@ class ProjectStructure:
         self.create_requirements()
 
         click.echo("Project successfully created")
+        click.echo("To start: docker-compose -f local.yml up --build")
 
     def startapp(self, app_name):
         """
@@ -180,13 +211,3 @@ class ProjectStructure:
                 with open(file_path, 'w') as f:
                     pass
         click.echo(f"App '{app_name}' created successfully at {app_path}")
-
-
-def current_path():
-    """
-    print current path
-    :return:
-    """
-    c_path = os.getcwd()
-    click.echo(f"Current path: {c_path}")
-    return c_path
