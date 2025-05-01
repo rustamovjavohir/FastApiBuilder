@@ -2,7 +2,7 @@ import io
 import os
 import sys
 from shutil import rmtree
-
+from fastapify import __version__
 from setuptools import setup, find_packages, Command
 
 # Package meta-data.
@@ -12,7 +12,7 @@ URL = "https://github.com/rustamovjavohir/FastApiBuilder"
 EMAIL = "rustamovj366@gmail.com"
 AUTHOR = "Rustamov Javohir"
 REQUIRES_PYTHON = ">=3.9.0"
-VERSION = "0.0.14"
+VERSION = __version__
 
 # What packages are required for this module to be executed?
 REQUIRED = [

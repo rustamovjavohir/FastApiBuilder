@@ -1,24 +1,14 @@
 import click
-
-from fastapify.module_functionality.commands import current_path, ProjectStructure
+from fastapify import __version__
+from fastapify.module_functionality.commands import ProjectStructure
 
 command = ProjectStructure()
 
 
 @click.group()
+@click.version_option(version=__version__, prog_name="Fastapify")
 def cli():
     pass
-
-
-@cli.command()
-@click.option('-n', '--name', type=str, help='Name to greet', default='World')
-def hello(name):
-    click.echo(f'Hello {name}')
-
-
-@cli.command()
-def path():
-    current_path()
 
 
 @cli.command()
