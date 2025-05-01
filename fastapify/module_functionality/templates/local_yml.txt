@@ -1,0 +1,38 @@
+services:
+  web:
+    env_file:
+      - .envs/.local/.web
+      - .envs/.local/.db
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    container_name: {{project_name}}-web
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8001:8000"
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: {{project_name}}-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_backups:/backups:z
+    env_file:
+      - .envs/.local/.db
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+  postgres_data_backups:
+
+networks:
+  app-network:

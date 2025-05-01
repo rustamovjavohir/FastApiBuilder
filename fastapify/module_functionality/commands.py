@@ -31,7 +31,7 @@ class ProjectStructure:
         os.makedirs(base_dir / '.local', exist_ok=True)
         os.makedirs(base_dir / '.prod', exist_ok=True)
 
-        click.echo(f"Environment folder successfully created at {base_dir}")
+        click.echo("Environment folder successfully created")
 
     def create_compose(self):
         """
@@ -52,7 +52,7 @@ class ProjectStructure:
             with open(base_dir / 'prod.yml', 'w') as f:
                 pass
 
-        click.echo(f"Compose folder successfully created at {base_dir}")
+        click.echo("Compose folder successfully created")
 
     def create_config(self):
         """
@@ -62,6 +62,10 @@ class ProjectStructure:
         base_dir = Path.cwd()
         config_folder = base_dir / self.config_folder
         os.makedirs(config_folder, exist_ok=True)
+
+        with open(config_folder / '__init__.py', 'w') as f:
+            pass
+
         with open(config_folder / 'config.py', 'w') as f:
             template_path = Path(__file__).parent / 'templates/config.py'
             output_path = config_folder / 'config.py'
@@ -74,6 +78,23 @@ class ProjectStructure:
 
         with open(config_folder / 'middlewares.py', 'w') as f:
             pass
+
+    def create_requirements(self):
+        """
+        Create a new Project and app with a specific structure.
+        :return:
+        """
+        base_dir = Path.cwd()
+        requirements_folder = base_dir / 'requirements'
+        os.makedirs(requirements_folder, exist_ok=True)
+        with open(requirements_folder / 'base.txt', 'w') as f:
+            pass
+
+        with open(requirements_folder / 'local.txt', 'w') as f:
+            f.write("-r base.txt")
+
+        command = "pip freeze > requirements/base.txt"
+        click.echo("Please write this command to install packages: \n" + command)
 
     def create_src(self):
         """
@@ -117,8 +138,6 @@ class ProjectStructure:
         with open(output_file, 'w') as file:
             file.write(content)
 
-        click.echo(f"File '{output_file}' created successfully.")
-
     def startproject(self):
         """
         Create a new Project and app with a specific structure.
@@ -134,8 +153,9 @@ class ProjectStructure:
         self.create_compose()
         self.create_config()
         self.create_src()
+        self.create_requirements()
 
-        click.echo(f"Project successfully created at {base_dir}")
+        click.echo("Project successfully created")
 
     def startapp(self, app_name):
         """
@@ -148,7 +168,7 @@ class ProjectStructure:
         src_path = Path.cwd() / 'src'
         if not src_path.exists():
             os.makedirs(src_path, exist_ok=True)
-            click.echo(f"src folder created at {src_path}")
+            click.echo("src folder created")
 
         app_path = src_path / app_name
         os.makedirs(app_path, exist_ok=True)
@@ -170,13 +190,3 @@ def current_path():
     c_path = os.getcwd()
     click.echo(f"Current path: {c_path}")
     return c_path
-
-
-def create_src():
-    """
-    create src folder in the app folder
-    :return:
-    """
-    os.makedirs('src', exist_ok=True)
-
-    click.echo("src folder created successfully.")
