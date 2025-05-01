@@ -1,6 +1,8 @@
 # FastAPI Builder
 
-FastAPI Crafter is a command-line tool designed to streamline the creation of well-organized file structures for FastAPI projects. It enables developers to kickstart their projects with best practices in mind, reducing boilerplate and setup time.
+FastApiFy is a command-line tool designed to streamline the creation of well-organized file structures for FastAPI
+projects. It enables developers to kickstart their projects with best practices in mind, reducing boilerplate and setup
+time.
 
 ## Features
 
@@ -13,7 +15,7 @@ FastAPI Crafter is a command-line tool designed to streamline the creation of we
 
 ## Installation
 
-Install FastAPI Crafter via pip:
+Install FastApiFy via pip:
 
 ```bash
 pip install fastapify
@@ -23,81 +25,76 @@ pip install fastapify
 
 ## Usage
 
-### Initialize a New Project
+### Create a New Project
 
 To create a new FastAPI project, run:
 
 ```bash
-fastapify init my-fastapi-project
+fastapify startproject my-fastapi-project
 ```
 
 This will scaffold a directory structure with the following layout:
 
 ```
 my-fastapi-project/
-├── app/
-│   ├── main.py
-│   ├── routers/
-│   │   └── __init__.py
-│   ├── models/
-│   │   └── __init__.py
-│   └── utils/
-│       └── __init__.py
-├── tests/
-│   └── test_main.py
-├── requirements.txt
+├── .envs/
+│   ├── .local/
+│   │      ├── .db
+│   │      └── .web
+│   └── .prod/
+│   
+├── compose/
+│   ├── local/
+│   │      └── django/
+│   │            └── Dockerfile
+│   └── prod/
+│          └── django/ 
+├── core
+│   ├── config.py
+│   ├── database.py
+│   └── middlewares.py
+│  
+├── requirements/
+│   ├── base.txt
+│   └── local.txt
+│  
+├── src/
+│   ├── __init__.py
+│   └── api.py
+│
+├── local.yml
+├── prod.yml
 └── README.md
 ```
 
-### Add a Router
+### Create new App
 
-Easily add new routers to your project:
-
-```bash
-fastapify add-router users
-```
-
-This creates `app/routers/users.py` with a basic template.
-
-### Generate Models
-
-To add a new database model:
+Easily add new applications to your project with:
 
 ```bash
-fastapify add-model User
+fastapify startapp myapp
 ```
 
-This generates a `User` model in `app/models/user.py`.
+This creates `src/myapp/` with the following structure:
 
----
+app structure:
 
-## Configuration
-
-FastAPI Crafter allows you to customize the project structure and templates. You can create a `.fastapi-crafter.json` file in your project root to define your preferences.
-
-Example configuration:
-
-```json
-{
-  "project_name": "my_fastapi_project",
-  "directories": [
-    "app/routers",
-    "app/models",
-    "app/utils",
-    "tests"
-  ],
-  "files": {
-    "app/main.py": "templates/main.py",
-    "requirements.txt": "templates/requirements.txt"
-  }
-}
+```
+myapp/
+├── __init__.py
+├── admin.py
+├── models.py
+├── router.py
+├── schemas.py
+└── service.py
 ```
 
 ---
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for new features or improvements, feel free to fork the repository and create a pull request.
+Contributions are welcome! If you have ideas for new features or improvements, feel free to fork the repository and
+create a pull request.
 
 1. Fork the repository
 2. Create a new branch
@@ -109,7 +106,7 @@ Contributions are welcome! If you have ideas for new features or improvements, f
 
 ## License
 
-FastAPI Crafter is open-source software licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+FastApiFy is open-source software licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -120,4 +117,4 @@ FastAPI Crafter is open-source software licensed under the MIT License. See the 
 
 ---
 
-Get started today with FastAPI Crafter and make your API development fast, efficient, and fun!
+Get started today with FastApiFy and make your API development fast, efficient, and fun!
