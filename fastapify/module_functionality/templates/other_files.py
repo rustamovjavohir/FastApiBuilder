@@ -70,3 +70,21 @@ volumes:
 networks:
   app-network:
 """
+
+base_requirements = """
+fastapi[all]==0.115.8
+uvicorn[standard]==0.34.0
+sqlalchemy[asyncio]==2.0.38
+asyncpg==0.30.0
+alembic==1.14.1
+sqladmin[full]==0.20.1
+greenlet==3.1.1
+sqlalchemy-utils==0.41.2
+PyJWT==2.10.1
+python-multipart==0.0.20
+requests==2.32.3
+passlib==1.7.4
+bcrypt==4.0.1
+starlette==0.45.3
+fastapi-utilities==0.3.0
+"""

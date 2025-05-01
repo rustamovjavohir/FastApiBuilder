@@ -33,11 +33,11 @@ class ProjectStructure:
         os.makedirs(base_dir / '.local', exist_ok=True)
         os.makedirs(base_dir / '.prod', exist_ok=True)
 
-        with open(base_dir / '.local' / '.db', 'w') as f:
+        if not (base_dir / '.local' / '.db').exists():
             output_path = base_dir / '.local' / '.db'
             self.render_file(other_files.env_db, output_path, kwargs)
 
-        with open(base_dir / '.local' / '.web', 'w') as f:
+        if not (base_dir / '.local' / '.web').exists():
             output_path = base_dir / '.local' / '.web'
             self.render_file(other_files.env_web, output_path, kwargs)
 
@@ -53,17 +53,16 @@ class ProjectStructure:
         os.makedirs(compose_folder / 'local' / 'django', exist_ok=True)
         os.makedirs(compose_folder / 'prod' / 'django', exist_ok=True)
 
-        with open(compose_folder / 'local' / 'django' / 'Dockerfile', 'w') as f:
+        if not (compose_folder / 'local' / 'django' / 'Dockerfile').exists():
             output_path = compose_folder / 'local' / 'django' / 'Dockerfile'
             self.render_file(other_files.local_django_dokerfile, output_path)
 
         if not (base_dir / 'local.yml').exists():
-            with open(base_dir / 'local.yml', 'w') as f:
-                output_path = base_dir / 'local.yml'
-                self.render_file(other_files.local_yml, output_path, placeholders=kwargs)
+            output_path = base_dir / 'local.yml'
+            self.render_file(other_files.local_yml, output_path, placeholders=kwargs)
 
         if not (base_dir / 'prod.yml').exists():
-            with open(base_dir / 'prod.yml', 'w') as f:
+            with open(base_dir / 'prod.yml', 'w'):
                 pass
 
     def create_config(self):
@@ -75,20 +74,20 @@ class ProjectStructure:
         config_folder = base_dir / self.config_folder
         os.makedirs(config_folder, exist_ok=True)
 
-        with open(config_folder / '__init__.py', 'w') as f:
+        with open(config_folder / '__init__.py', 'w'):
             pass
 
-        with open(config_folder / 'config.py', 'w') as f:
+        if not (config_folder / 'config.py').exists():
             template_path = Path(__file__).parent / 'templates/config.py'
             output_path = config_folder / 'config.py'
             self.render_to_string(template_path, output_path)
 
-        with open(config_folder / 'database.py', 'w') as f:
+        if not (config_folder / 'database.py').exists():
             template_path = Path(__file__).parent / 'templates/database.py'
             output_path = config_folder / 'database.py'
             self.render_to_string(template_path, output_path)
 
-        with open(config_folder / 'middlewares.py', 'w') as f:
+        with open(config_folder / 'middlewares.py', 'w'):
             pass
 
     def create_requirements(self):
@@ -99,8 +98,10 @@ class ProjectStructure:
         base_dir = Path.cwd()
         requirements_folder = base_dir / 'requirements'
         os.makedirs(requirements_folder, exist_ok=True)
-        with open(requirements_folder / 'base.txt', 'w') as f:
-            pass
+
+        if not (requirements_folder / 'base.txt').exists():
+            output_path = requirements_folder / 'base.txt'
+            self.render_file(other_files.base_requirements, output_path)
 
         with open(requirements_folder / 'local.txt', 'w') as f:
             f.write("-r base.txt")
@@ -117,7 +118,7 @@ class ProjectStructure:
         source_folder = base_dir / self.source_folder
         os.makedirs(source_folder, exist_ok=True)
         if not (source_folder / '__init__.py').exists():
-            with open(source_folder / '__init__.py', 'w') as f:
+            with open(source_folder / '__init__.py', 'w'):
                 pass
 
         template_path = Path(__file__).parent / 'templates/api.py'
@@ -208,6 +209,6 @@ class ProjectStructure:
         for file in self.required_files:
             file_path = app_path / file
             if not file_path.exists():
-                with open(file_path, 'w') as f:
+                with open(file_path, 'w'):
                     pass
         click.echo(f"App '{app_name}' created successfully at {app_path}")
