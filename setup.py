@@ -94,7 +94,7 @@ setup(
     version=about["__version__"],
     author=AUTHOR,
     author_email=EMAIL,
-    license='<the license you chose>',
+    license="MIT",
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
